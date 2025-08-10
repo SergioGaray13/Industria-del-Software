@@ -1,0 +1,19 @@
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo beige claro -->
+  <rect width="700" height="300" fill="#f5f5dc"/>
+  
+  <!-- Icono cuadrado con bordes redondeados -->
+  <rect x="50" y="50" width="200" height="200" rx="40" ry="40" fill="#ff5722"/>
+  
+  <!-- Símbolo de usuario -->
+  <g transform="translate(150, 150)">
+    <!-- Cabeza del usuario -->
+    <circle cx="0" cy="-25" r="30" fill="white"/>
+    
+    <!-- Cuerpo del usuario -->
+    <path d="M -40 35 Q -40 15 -30 15 L 30 15 Q 40 15 40 35 L 40 55 L -40 55 Z" fill="white"/>
+  </g>
+  
+  <!-- Texto "Usuario" -->
+  <text x="300" y="180" font-family="Arial, sans-serif" font-size="100" font-weight="bold" fill="#ff5722">Usuario</text>
+</svg>

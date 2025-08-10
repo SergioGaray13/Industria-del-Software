@@ -1,0 +1,28 @@
+<svg viewBox="0 0 950 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo beige claro -->
+  <rect width="950" height="300" fill="#f5f5dc"/>
+  
+  <!-- Icono cuadrado con bordes redondeados -->
+  <rect x="50" y="50" width="200" height="200" rx="40" ry="40" fill="#ff5722"/>
+  
+  <!-- Símbolo de usuario con X (eliminar) -->
+  <g transform="translate(150, 150)">
+    <!-- Cabeza del usuario -->
+    <circle cx="0" cy="-20" r="25" fill="white"/>
+    
+    <!-- Cuerpo del usuario -->
+    <path d="M -35 30 Q -35 10 -25 10 L 25 10 Q 35 10 35 30 L 35 50 L -35 50 Z" fill="white"/>
+    
+    <!-- X (eliminar) -->
+    <g transform="translate(40, -40)">
+      <!-- Línea diagonal 1 -->
+      <rect x="-2" y="-15" width="4" height="30" fill="white" rx="2" transform="rotate(45)"/>
+      <!-- Línea diagonal 2 -->
+      <rect x="-2" y="-15" width="4" height="30" fill="white" rx="2" transform="rotate(-45)"/>
+    </g>
+  </g>
+  
+  <!-- Texto "Eliminar usuario" -->
+  <text x="300" y="140" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ff5722">Eliminar</text>
+  <text x="300" y="220" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ff5722">usuario</text>
+</svg>

@@ -1,0 +1,87 @@
+```
+.
+├── .next
+├── node_modules
+├── public
+│   ├── banquete.jpg
+│   ├── buscar.png
+│   ├── Eventualy.jpg
+│   ├── facebook.svg
+│   ├── file.svg
+│   ├── flores.png
+│   ├── globe.svg
+│   ├── instagram.svg
+│   ├── next.svg
+│   ├── organizador-de-eventos.jpg
+│   ├── salon-de-fiestas.webp
+│   ├── tiktok.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── src
+│   ├── app
+│   │   ├── bd
+│   │   │   ├── DDL.sql
+│   │   │   └── DML.sql
+│   │   ├── dashboard
+│   │   │   ├── crear-evento
+│   │   │   │   └── page.tsx
+│   │   │   ├── eventos
+│   │   │   │   └── page.tsx
+│   │   │   ├── feed
+│   │   │   │   └── page.tsx
+│   │   │   ├── mapa
+│   │   │   │   └── page.tsx
+│   │   │   ├── reservas
+│   │   │   │   └── page.tsx
+│   │   │   ├── salones
+│   │   │   │   └── page.tsx
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   ├── login
+│   │   │   └── page.tsx
+│   │   ├── privacidad
+│   │   │   └── page.tsx
+│   │   ├── register
+│   │   │   └── page.tsx
+│   │   ├── terminos
+│   │   │   └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── pagevieja.tsx
+│   ├── components
+│   │   ├── ChatBot.tsx
+│   │   ├── DashboardNavbar.tsx
+│   │   ├── EventCard.tsx
+│   │   ├── EventList.tsx
+│   │   ├── Feed.tsx
+│   │   ├── Footer.tsx
+│   │   ├── MapaInteractivo.tsx
+│   │   ├── ProviderCard.tsx
+│   │   └── SearchBar.tsx
+│   ├── hooks
+│   │   └── useEvents.ts
+│   ├── lib
+│   │   └── supabase.ts
+│   ├── pages
+│   │   └── api
+│   │       └── chatbot.ts
+│   ├── services
+│   │   ├── bookingService.ts
+│   │   └── eventService.ts
+│   └── types
+│       └── database.ts
+├── .env.local
+├── .gitignore
+├── eslint.config.mjs
+├── estructura.mkd
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── README.md
+├── sql.txt
+└── tsconfig.json
+```

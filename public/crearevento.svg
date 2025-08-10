@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Fondo con bordes redondeados, mismo estilo que Eventually -->
+  <rect x="10" y="10" width="100" height="100" rx="25" ry="25" fill="#FF6B35" stroke="none"/>
+  
+  <!-- Símbolo de calendario base -->
+  <rect x="35" y="40" width="50" height="40" rx="4" ry="4" fill="white" stroke="none"/>
+  
+  <!-- Líneas superiores del calendario (argollas) -->
+  <rect x="42" y="32" width="3" height="12" rx="1.5" fill="white"/>
+  <rect x="75" y="32" width="3" height="12" rx="1.5" fill="white"/>
+  
+  <!-- Línea divisoria del calendario -->
+  <rect x="38" y="48" width="44" height="1.5" fill="#FF6B35"/>
+  
+  <!-- Líneas del calendario (días) -->
+  <rect x="40" y="55" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  <rect x="50" y="55" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  <rect x="60" y="55" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  <rect x="70" y="55" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  
+  <rect x="40" y="62" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  <rect x="50" y="62" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  <rect x="60" y="62" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  <rect x="70" y="62" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  
+  <rect x="40" y="69" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  <rect x="50" y="69" width="6" height="1.5" fill="#FF6B35" opacity="0.6"/>
+  
+  <!-- Símbolo + (plus) para "crear" -->
+  <circle cx="75" cy="70" r="12" fill="white" stroke="#FF6B35" stroke-width="2"/>
+  <rect x="72" y="64" width="6" height="12" rx="1" fill="#FF6B35"/>
+  <rect x="69" y="67" width="12" height="6" rx="1" fill="#FF6B35"/>
+</svg>

@@ -1,0 +1,36 @@
+<svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo beige claro -->
+  <rect width="800" height="300" fill="#f5f5dc"/>
+  
+  <!-- Icono cuadrado con bordes redondeados -->
+  <rect x="50" y="50" width="200" height="200" rx="40" ry="40" fill="#ff5722"/>
+  
+  <!-- Símbolo de cubiertos (tenedor y cuchillo) -->
+  <g transform="translate(150, 150)">
+    <!-- Tenedor -->
+    <g transform="translate(-30, 0)">
+      <!-- Mango del tenedor -->
+      <rect x="-3" y="10" width="6" height="60" fill="white" rx="3"/>
+      <!-- Dientes del tenedor -->
+      <rect x="-12" y="-30" width="4" height="40" fill="white" rx="2"/>
+      <rect x="-4" y="-30" width="4" height="40" fill="white" rx="2"/>
+      <rect x="4" y="-30" width="4" height="40" fill="white" rx="2"/>
+      <rect x="12" y="-30" width="4" height="40" fill="white" rx="2"/>
+      <!-- Base del tenedor -->
+      <rect x="-15" y="5" width="30" height="8" fill="white" rx="4"/>
+    </g>
+    
+    <!-- Cuchillo -->
+    <g transform="translate(30, 0)">
+      <!-- Mango del cuchillo -->
+      <rect x="-3" y="10" width="6" height="60" fill="white" rx="3"/>
+      <!-- Hoja del cuchillo -->
+      <path d="M -8 -30 L 8 -30 L 8 5 L -8 5 Z" fill="white"/>
+      <!-- Punta del cuchillo -->
+      <path d="M -8 -30 L 0 -40 L 8 -30 Z" fill="white"/>
+    </g>
+  </g>
+  
+  <!-- Texto "Catering" -->
+  <text x="300" y="180" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#ff5722">Catering</text>
+</svg>

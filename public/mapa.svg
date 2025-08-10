@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Fondo con bordes redondeados, mismo estilo que Eventually -->
+  <rect x="10" y="10" width="100" height="100" rx="25" ry="25" fill="#FF6B35" stroke="none"/>
+  
+  <!-- Mapa base -->
+  <rect x="25" y="30" width="70" height="50" rx="4" ry="4" fill="white" stroke="none"/>
+  
+  <!-- Líneas del mapa que simulan calles/rutas -->
+  <path d="M30 40 Q45 35 60 45 T90 40" stroke="#FF6B35" stroke-width="2.5" fill="none" opacity="0.7"/>
+  <path d="M30 50 Q50 45 70 55 T90 50" stroke="#FF6B35" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M30 60 Q40 65 55 60 T90 65" stroke="#FF6B35" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M30 70 Q50 75 75 65 T90 70" stroke="#FF6B35" stroke-width="1.5" fill="none" opacity="0.4"/>
+  
+  <!-- Líneas verticales que cruzan -->
+  <line x1="45" y1="35" x2="48" y2="75" stroke="#FF6B35" stroke-width="1.5" opacity="0.4"/>
+  <line x1="65" y1="35" x2="68" y2="75" stroke="#FF6B35" stroke-width="1.5" opacity="0.4"/>
+  <line x1="80" y1="35" x2="82" y2="75" stroke="#FF6B35" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- Pin de ubicación principal -->
+  <g transform="translate(60, 45)">
+    <!-- Sombra del pin -->
+    <ellipse cx="1" cy="18" rx="4" ry="2" fill="#FF6B35" opacity="0.3"/>
+    <!-- Cuerpo del pin -->
+    <path d="M0 0 C-6 0 -10 4 -10 10 C-10 16 0 25 0 25 C0 25 10 16 10 10 C10 4 6 0 0 0 Z" fill="white" stroke="#FF6B35" stroke-width="2"/>
+    <!-- Punto central del pin -->
+    <circle cx="0" cy="8" r="4" fill="#FF6B35"/>
+  </g>
+  
+  <!-- Pins secundarios más pequeños -->
+  <g transform="translate(40, 55)">
+    <path d="M0 0 C-3 0 -5 2 -5 5 C-5 8 0 12 0 12 C0 12 5 8 5 5 C5 2 3 0 0 0 Z" fill="white" stroke="#FF6B35" stroke-width="1.5"/>
+    <circle cx="0" cy="4" r="2" fill="#FF6B35"/>
+  </g>
+  
+  <g transform="translate(78, 60)">
+    <path d="M0 0 C-3 0 -5 2 -5 5 C-5 8 0 12 0 12 C0 12 5 8 5 5 C5 2 3 0 0 0 Z" fill="white" stroke="#FF6B35" stroke-width="1.5"/>
+    <circle cx="0" cy="4" r="2" fill="#FF6B35"/>
+  </g>
+</svg>
