@@ -1,3 +1,4 @@
+//src\components\crear-evento\Step1BasicInfo.tsx
 import InputField from './InputField';
 import { FormState } from '@/hooks/useCrearEventoForm';
 

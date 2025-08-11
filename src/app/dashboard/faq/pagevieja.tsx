@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
-import ChatBot from '@/components/ChatBot'
+import ChatBot from '@/components/chatbot/ChatBot'
 
 interface FAQ {
   id: string

@@ -1,3 +1,4 @@
+//src\app\dashboard\page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -39,9 +40,8 @@ export default function Dashboard() {
     );
   }
 
-  const categories = [
+  const allCategories = [
     { label: 'Salones', icon: '/salones.webp', href: '/dashboard/salones', priority: true },
-    { label: 'Patrocinadores', icon: '/Sponsors.webp', href: '/dashboard/sponsors' },
     { label: 'Proveedores', icon: '/provider.webp', href: '/dashboard/proveedor' },
     { label: 'FAQ', icon: '/FAQ.webp', href: '/dashboard/faq' },
     { label: 'Lugar', icon: '/places.webp', href: '/dashboard/lugar' },
@@ -51,12 +51,16 @@ export default function Dashboard() {
     { label: 'ChatBot', icon: '/Chatbot.webp', href: '/dashboard/chatbot' },
   ];
 
+  let categories = [...allCategories];
   if (userRole === 'admin') {
     categories.push({
       label: 'Usuarios',
       icon: '/Users.webp',
       href: '/dashboard/usuarios',
     });
+  }
+  else {
+    categories = categories.filter(cat => cat.label !== 'Categorías' && cat.label !== 'Usuarios');
   }
 
   const filteredCategories = categories.filter((cat) =>

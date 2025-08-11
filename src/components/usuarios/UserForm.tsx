@@ -1,7 +1,8 @@
-//Formulario de usuario
+// src/components/usuarios/UserForm.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
+
 import { User } from '@/hooks/useUsers';
 
 interface Props {
@@ -15,7 +16,8 @@ export default function UserForm({ user, onCancel, onSave, actionLoading }: Prop
   const [form, setForm] = useState({
     first_name: '',
     last_name: '',
-    role: 'usuario' as 'usuario' | 'proveedor' | 'admin'
+    role: 'usuario' as 'usuario' | 'proveedor' | 'admin',
+    is_active: true, // nuevo campo para estado
   });
 
   useEffect(() => {
@@ -23,15 +25,21 @@ export default function UserForm({ user, onCancel, onSave, actionLoading }: Prop
       setForm({
         first_name: user.first_name || '',
         last_name: user.last_name || '',
-        role: user.role || 'usuario'
+        role: user.role || 'usuario',
+        is_active: user.is_active ?? true,
       });
     } else {
-      setForm({ first_name: '', last_name: '', role: 'usuario' });
+      setForm({ first_name: '', last_name: '', role: 'usuario', is_active: true });
     }
   }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const target = e.target as HTMLInputElement;
+    const { name, value, type, checked } = target;
+    setForm(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -87,6 +95,20 @@ export default function UserForm({ user, onCancel, onSave, actionLoading }: Prop
             <option value="admin">Administrador</option>
           </select>
         </div>
+        {/* NUEVO: Toggle para activar/desactivar usuario */}
+        <div className="mb-4 flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="is_active"
+            checked={form.is_active}
+            onChange={handleChange}
+            disabled={actionLoading}
+            id="is_active_toggle"
+            className="h-5 w-5"
+          />
+          <label htmlFor="is_active_toggle" className="text-sm font-medium">Usuario activo</label>
+        </div>
+
         <div className="flex gap-3">
           <button
             type="submit"

@@ -1,4 +1,4 @@
-import ChatBot from '@/components/ChatBot'
+import ChatBot from '@/components/chatbot/ChatBot'
 
 export default function ChatbotPage() {
   return (

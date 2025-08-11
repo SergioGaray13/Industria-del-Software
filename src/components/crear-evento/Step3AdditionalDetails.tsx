@@ -1,3 +1,4 @@
+//src\components\crear-evento\Step3AdditionalDetails.tsx
 import InputField from './InputField';
 import { FormState } from '@/hooks/useCrearEventoForm';
 interface Catering {

@@ -1,3 +1,4 @@
+//src\components\crear-evento\InputField.tsx
 interface InputFieldProps {
     label: string;
     error?: string;

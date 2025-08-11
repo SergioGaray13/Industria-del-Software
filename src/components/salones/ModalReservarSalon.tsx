@@ -1,4 +1,4 @@
-// components/ModalReserva.tsx
+// src\components\salones\ModalReservarSalon.tsx
 import React from 'react';
 import { Salon } from '@/types/salon';
 

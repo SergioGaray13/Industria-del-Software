@@ -1,7 +1,7 @@
-//Tabla de usuarios
+// src/components/usuarios/UserTable.tsx
 'use client';
 
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { User } from '@/hooks/useUsers';
 
 type SortField = 'first_name' | 'last_name' | 'role' | 'created_at';
@@ -13,18 +13,17 @@ interface Props {
   onEdit: (u: User) => void;
   onDelete: (id: string, name: string) => void;
   actionLoading: boolean;
+  toggleActive: (user: User, newState: boolean) => void;
 }
 
-export default function UserTable({ users, searchTerm, onEdit, onDelete, actionLoading }: Props) {
+export default function UserTable({ users, searchTerm, onEdit, onDelete, actionLoading, toggleActive }: Props) {
   const [sortField, setSortField] = useState<SortField>('created_at');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
 
   const filteredUsers = useMemo(() => {
     return [...users]
       .filter(u =>
-        `${u.first_name} ${u.last_name} ${u.role}`
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
+        `${u.first_name} ${u.last_name} ${u.role}`.toLowerCase().includes(searchTerm.toLowerCase())
       )
       .sort((a, b) => {
         const valA = sortField === 'created_at'
@@ -56,6 +55,7 @@ export default function UserTable({ users, searchTerm, onEdit, onDelete, actionL
             <th onClick={() => handleSort('first_name')} className="px-6 py-3 cursor-pointer">Nombre</th>
             <th onClick={() => handleSort('last_name')} className="px-6 py-3 cursor-pointer">Apellido</th>
             <th onClick={() => handleSort('role')} className="px-6 py-3 cursor-pointer">Rol</th>
+            <th className="px-6 py-3">Activo</th>
             <th onClick={() => handleSort('created_at')} className="px-6 py-3 cursor-pointer">Fecha</th>
             <th className="px-6 py-3">Acciones</th>
           </tr>
@@ -66,6 +66,22 @@ export default function UserTable({ users, searchTerm, onEdit, onDelete, actionL
               <td className="px-6 py-3">{u.first_name}</td>
               <td className="px-6 py-3">{u.last_name}</td>
               <td className="px-6 py-3">{u.role}</td>
+              <td className="px-6 py-3 text-center">
+                <label className="inline-flex relative items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={u.is_active}
+                    disabled={actionLoading}
+                    onChange={() => toggleActive(u, !u.is_active)}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-orange-600
+                    peer-focus:ring-4 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800
+                    transition-colors"></div>
+                  <div className="absolute left-1 top-1 bg-white w-4 h-4 rounded-full
+                    shadow transform peer-checked:translate-x-5 transition-transform"></div>
+                </label>
+              </td>
               <td className="px-6 py-3">{new Date(u.created_at).toLocaleDateString()}</td>
               <td className="px-6 py-3 flex gap-2">
                 <button onClick={() => onEdit(u)} disabled={actionLoading} className="bg-yellow-500 text-white px-3 py-1 rounded">Editar</button>
@@ -74,7 +90,7 @@ export default function UserTable({ users, searchTerm, onEdit, onDelete, actionL
             </tr>
           )) : (
             <tr>
-              <td colSpan={5} className="text-center py-6">No hay usuarios</td>
+              <td colSpan={6} className="text-center py-6">No hay usuarios</td>
             </tr>
           )}
         </tbody>

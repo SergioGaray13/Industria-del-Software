@@ -1,4 +1,4 @@
-// components/ModalEliminar.tsx
+// src\components\salones\ModalEliminarSalon.tsx
 import React from 'react';
 
 interface ModalEliminarProps {

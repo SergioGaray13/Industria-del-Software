@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { obtenerLugaresConSalones } from '@/services/lugarService'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import ChatBot from '@/components/ChatBot'
+import ChatBot from '@/components/chatbot/ChatBot'
 
 interface Salon {
   id: string

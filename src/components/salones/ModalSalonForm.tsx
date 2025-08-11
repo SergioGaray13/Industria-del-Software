@@ -1,4 +1,4 @@
-// components/ModalSalonForm.tsx
+// src\components\salones\ModalSalonForm.tsx
 import React from 'react';
 import { FormSalon } from '@/types/salon';
 

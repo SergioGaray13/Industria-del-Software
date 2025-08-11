@@ -1,4 +1,4 @@
-//Hook de usuarios
+// src/hooks/useUsers.ts
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ export interface User {
   first_name: string;
   last_name: string;
   role: 'usuario' | 'proveedor' | 'admin';
+  is_active: boolean; // nuevo campo
   created_at: string;
 }
 
@@ -24,7 +25,7 @@ export function useUsers() {
       try {
         const { data, error } = await supabase
           .from('users')
-          .select('id, first_name, last_name, role, created_at');
+          .select('id, first_name, last_name, role, is_active, created_at');
 
         if (error) throw error;
         setUsers(data || []);
@@ -69,12 +70,27 @@ export function useUsers() {
     }
   }
 
+  // Cambiar estado activo/inactivo rápido (para tabla)
+  async function toggleActive(user: User, newState: boolean) {
+    setActionLoading(true);
+    try {
+      const { error } = await supabase.from('users').update({ is_active: newState }).eq('id', user.id);
+      if (error) throw error;
+      setUsers(prev => prev.map(u => (u.id === user.id ? { ...u, is_active: newState } : u)));
+    } catch (err: any) {
+      alert('Error: ' + err.message);
+    } finally {
+      setActionLoading(false);
+    }
+  }
+
   return {
     users,
     loading,
     error,
     actionLoading,
     saveUser,
-    deleteUser
+    deleteUser,
+    toggleActive,
   };
 }

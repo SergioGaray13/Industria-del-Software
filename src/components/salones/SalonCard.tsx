@@ -1,9 +1,10 @@
-// components/SalonCard.tsx
+// src/components/salones/SalonCard.tsx
 import React from 'react';
 import { Salon } from '@/types/salon';
 
 interface SalonCardProps {
   salon: Salon;
+  userRole: string | null; // <-- agregada prop para el rol
   onReservar: (salon: Salon) => void;
   onEditar: (salon: Salon) => void;
   onEliminar: (salonId: string) => void;
@@ -11,6 +12,7 @@ interface SalonCardProps {
 
 export const SalonCard: React.FC<SalonCardProps> = ({
   salon,
+  userRole,
   onReservar,
   onEditar,
   onEliminar,
@@ -52,18 +54,24 @@ export const SalonCard: React.FC<SalonCardProps> = ({
         >
           Reservar
         </button>
-        <button
-          onClick={() => onEditar(salon)}
-          className="flex-1 bg-yellow-400 py-2 rounded-lg hover:bg-yellow-500 transition"
-        >
-          Editar
-        </button>
-        <button
-          onClick={() => onEliminar(salon.id)}
-          className="flex-1 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition"
-        >
-          Eliminar
-        </button>
+
+        {/* Solo admin ve estos botones */}
+        {userRole === 'admin' && (
+          <>
+            <button
+              onClick={() => onEditar(salon)}
+              className="flex-1 bg-yellow-400 py-2 rounded-lg hover:bg-yellow-500 transition"
+            >
+              Editar
+            </button>
+            <button
+              onClick={() => onEliminar(salon.id)}
+              className="flex-1 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition"
+            >
+              Eliminar
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

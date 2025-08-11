@@ -31,16 +31,22 @@ export default function ReservasPage() {
 
     const { data, error } = await supabase
       .from('reservas')
-      .select('id, fecha, hora, estado, salon:salon_id (nombre, ubicacion)')
+      .select(`
+        id, 
+        fecha, 
+        hora, 
+        estado, 
+        salones!inner(nombre, ubicacion)
+      `)
       .eq('usuario_id', session.user.id)
       .order('fecha', { ascending: true });
 
     if (!error && data) {
+      console.log('Datos recibidos:', data); // Para debug
+      
       const reservasConSalonObjeto = data.map((r: any) => ({
         ...r,
-        salon: Array.isArray(r.salon) && r.salon.length > 0
-          ? r.salon[0]
-          : { nombre: '', ubicacion: '' },
+        salon: r.salones || { nombre: 'Salón no encontrado', ubicacion: 'Ubicación no disponible' },
       }));
 
       setReservas(reservasConSalonObjeto);

@@ -1,24 +1,8 @@
-/*Estructura
-src/
-├── types/
-│   └── salon.types.ts
-├── services/
-│   └── salon.service.ts
-├── components/
-│   ├── SalonCard.tsx
-│   ├── ModalReserva.tsx
-│   ├── ModalSalonForm.tsx
-│   └── ModalEliminar.tsx
-├── hooks/
-│   └── useSalones.ts
-└── app/dashboard/salones/
-    └── page.tsx*/
-
-
-// src/app/dashboard/salones/page.tsx (Componente principal refactorizado)
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
 import { SalonCard } from '@/components/salones/SalonCard';
 import { ModalReserva } from '@/components/salones/ModalReservarSalon';
 import { ModalSalonForm } from '@/components/salones/ModalSalonForm';
@@ -27,6 +11,8 @@ import { useSalones } from '@/hooks/useSalones';
 import { Salon, FormSalon } from '@/types/salon';
 
 export default function SalonesPage() {
+  const router = useRouter();
+
   const {
     salones,
     loading: salonesLoading,
@@ -36,14 +22,16 @@ export default function SalonesPage() {
     crearReserva,
   } = useSalones();
 
-  // Estados para modal de reserva
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [loadingRole, setLoadingRole] = useState(true);
+
+  // Estados para modales
   const [selectedSalon, setSelectedSalon] = useState<Salon | null>(null);
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
   const [mensajeReserva, setMensajeReserva] = useState('');
   const [modalReservarOpen, setModalReservarOpen] = useState(false);
 
-  // Estados para modal de formulario
   const [modalFormOpen, setModalFormOpen] = useState(false);
   const [formSalon, setFormSalon] = useState<FormSalon>({
     nombre: '',
@@ -57,11 +45,39 @@ export default function SalonesPage() {
   const [loadingForm, setLoadingForm] = useState(false);
   const [mensajeForm, setMensajeForm] = useState('');
 
-  // Estados para modal de eliminar
   const [modalEliminarOpen, setModalEliminarOpen] = useState(false);
   const [eliminarSalonId, setEliminarSalonId] = useState<string | null>(null);
   const [loadingEliminar, setLoadingEliminar] = useState(false);
   const [mensajeEliminar, setMensajeEliminar] = useState('');
+
+  // Obtener el rol del usuario al cargar la página
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        router.push('/login');
+        return;
+      }
+
+      const { data: userData, error } = await supabase
+        .from('users')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+      if (error || !userData) {
+        setUserRole(null);
+      } else {
+        setUserRole(userData.role);
+      }
+      setLoadingRole(false);
+    };
+
+    fetchUserRole();
+  }, [router]);
 
   // Funciones para reserva
   const abrirModalReservar = (salon: Salon) => {
@@ -161,7 +177,7 @@ export default function SalonesPage() {
         await crearSalon(formSalon);
         setMensajeForm('✅ Salón agregado con éxito');
       }
-      
+
       setTimeout(() => cerrarModalForm(), 1500);
     } catch (error: any) {
       setMensajeForm('❌ Error al guardar salón: ' + error.message);
@@ -200,26 +216,36 @@ export default function SalonesPage() {
     }
   };
 
+  if (loadingRole) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-orange-700">
+        Cargando...
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen p-6">
       <div className="mb-6 text-center">
-        <button
-          onClick={abrirModalAgregar}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-        >
-          + Agregar nuevo salón
-        </button>
+        {/* Solo muestra el botón de agregar si es admin */}
+        {userRole === 'admin' && (
+          <button
+            onClick={abrirModalAgregar}
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+          >
+            + Agregar nuevo salón
+          </button>
+        )}
       </div>
 
-      {salonesLoading && (
-        <div className="text-center">Cargando salones...</div>
-      )}
+      {salonesLoading && <div className="text-center">Cargando salones...</div>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {salones.map((salon) => (
           <SalonCard
             key={salon.id}
             salon={salon}
+            userRole={userRole} // Pasamos el rol al componente
             onReservar={abrirModalReservar}
             onEditar={abrirModalEditar}
             onEliminar={abrirModalEliminar}

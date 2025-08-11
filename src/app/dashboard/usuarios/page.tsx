@@ -8,7 +8,7 @@ import UserSearchBar from '@/components/usuarios/UserSearchBar';
 import UserTable from '@/components/usuarios/UserTable';
 
 export default function UsuariosPage() {
-  const { users, loading, error, actionLoading, saveUser, deleteUser } = useUsers();
+  const { users, loading, error, actionLoading, saveUser, deleteUser, toggleActive } = useUsers();
   const [searchTerm, setSearchTerm] = useState('');
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -18,13 +18,6 @@ export default function UsuariosPage() {
 
   return (
     <div className="space-y-6">
-      {/* Encabezado específico de la página */}
-      <div>
-        <h1 className="text-3xl font-bold text-orange-600">Usuarios Registrados</h1>
-        <p className="text-sm text-gray-500">Gestión de usuarios del sistema</p>
-      </div>
-
-      {/* Barra de búsqueda */}
       <UserSearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -34,7 +27,6 @@ export default function UsuariosPage() {
         }}
       />
 
-      {/* Formulario de creación/edición */}
       {(isAdding || editingUser) && (
         <UserForm
           user={editingUser}
@@ -47,7 +39,6 @@ export default function UsuariosPage() {
         />
       )}
 
-      {/* Tabla de usuarios */}
       <UserTable
         users={users}
         searchTerm={searchTerm}
@@ -57,6 +48,7 @@ export default function UsuariosPage() {
         }}
         onDelete={deleteUser}
         actionLoading={actionLoading}
+        toggleActive={toggleActive} // PASAMOS la función aquí
       />
     </div>
   );

@@ -1,3 +1,4 @@
+//src\components\crear-evento\Step2LocationContact.tsx
 import InputField from './InputField';
 import { FormState } from '@/hooks/useCrearEventoForm';
 interface Place {

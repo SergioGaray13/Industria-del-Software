@@ -1,3 +1,4 @@
+//src\components\crear-evento\StepIndicator.tsx
 interface StepIndicatorProps {
     currentStep: number;
   }

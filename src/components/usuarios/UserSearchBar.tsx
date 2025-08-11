@@ -1,4 +1,5 @@
 //Barra de búsqueda
+//src\components\usuarios\UserSearchBar.tsx
 'use client';
 
 interface Props {

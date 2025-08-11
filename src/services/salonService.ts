@@ -1,4 +1,4 @@
-// services/salon.service.ts
+// src\services\salonService.ts
 import { supabase } from '@/lib/supabase';
 import { Salon, FormSalon } from '@/types/salon';
 
@@ -21,10 +21,28 @@ export class SalonService {
 
   // Obtener todos los salones
   static async fetchSalones(): Promise<Salon[]> {
-    const { data, error } = await supabase.from('salones').select('*');
+    const { data, error } = await supabase
+      .from('salones')
+      .select(`
+        *,
+        salon_sesiones (
+          id,
+          hora,
+          tema
+        )
+      `);
+  
     if (error) throw error;
-    return data || [];
+  
+    // Opcional: renombrar 'salon_sesiones' a 'sesiones' para que sea más claro
+    const salonesConSesiones = data?.map((salon) => ({
+      ...salon,
+      sesiones: salon.salon_sesiones ?? [],
+    })) ?? [];
+  
+    return salonesConSesiones;
   }
+  
 
   // Crear nuevo salón
   static async crearSalon(formSalon: FormSalon): Promise<void> {

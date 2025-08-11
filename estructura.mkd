@@ -53,15 +53,9 @@
 │   ├── components
 │   │   ├── ChatBot.tsx
 │   │   ├── DashboardNavbar.tsx
-│   │   ├── EventCard.tsx
-│   │   ├── EventList.tsx
 │   │   ├── Feed.tsx
 │   │   ├── Footer.tsx
-│   │   ├── MapaInteractivo.tsx
-│   │   ├── ProviderCard.tsx
-│   │   └── SearchBar.tsx
 │   ├── hooks
-│   │   └── useEvents.ts
 │   ├── lib
 │   │   └── supabase.ts
 │   ├── pages
@@ -69,7 +63,6 @@
 │   │       └── chatbot.ts
 │   ├── services
 │   │   ├── bookingService.ts
-│   │   └── eventService.ts
 │   └── types
 │       └── database.ts
 ├── .env.local

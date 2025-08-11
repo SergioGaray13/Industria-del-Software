@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 
-const ChatBot = dynamic(() => import('@/components/ChatBot'), {
+const ChatBot = dynamic(() => import('@/components/chatbot/ChatBot'), {
   ssr: false,
   loading: () => <div className="text-sm text-orange-500">Cargando Chat...</div>,
 });
