@@ -29,14 +29,12 @@ export default function Step2LocationContact({
   places,
   locations,
 }: Step2Props) {
-  // Función para calcular la diferencia en horas
   const calculateHours = (start: string, end: string): number => {
     if (!start || !end) return 0;
 
     const startTime = new Date(`2000-01-01T${start}`);
     const endTime = new Date(`2000-01-01T${end}`);
     
-    // Si la hora final es menor que la inicial, asumimos que es al día siguiente
     if (endTime < startTime) {
       endTime.setDate(endTime.getDate() + 1);
     }
@@ -44,11 +42,9 @@ export default function Step2LocationContact({
     const diffMs = endTime.getTime() - startTime.getTime();
     const diffHours = diffMs / (1000 * 60 * 60);
     
-    // Redondear a 2 decimales
     return Math.round(diffHours * 100) / 100;
   };
 
-  // Efecto para calcular horas cuando cambian los tiempos
   useEffect(() => {
     if (formState.startTime && formState.endTime) {
       const hoursReserved = calculateHours(formState.startTime, formState.endTime);
