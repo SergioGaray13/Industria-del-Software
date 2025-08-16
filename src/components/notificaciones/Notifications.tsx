@@ -23,7 +23,6 @@ export default function NotificationsDropdown() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  // Cargar notificaciones y suscribirse a cambios en tiempo real
   useEffect(() => {
     const fetchNotifications = async () => {
       const session = await supabase.auth.getSession();
@@ -62,7 +61,6 @@ export default function NotificationsDropdown() {
     };
   }, []);
 
-  // Cerrar menú si clic afuera
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -82,7 +80,6 @@ export default function NotificationsDropdown() {
     };
   }, [menuOpen]);
 
-  // Marcar como leído
   const markAsRead = async (id: string) => {
     await supabase
       .from('notifications')
@@ -91,7 +88,6 @@ export default function NotificationsDropdown() {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
-  // Ir a la página relacionada
   const goToRelated = (related_type: string | null, related_id: string | null) => {
     if (!related_id) return;
     if (related_type === 'event') {
