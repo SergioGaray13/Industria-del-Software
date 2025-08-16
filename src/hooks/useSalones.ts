@@ -24,7 +24,7 @@ export const useSalones = () => {
   const crearSalon = async (formSalon: FormSalon) => {
     try {
       await SalonService.crearSalon(formSalon);
-      await fetchSalones(); // Refrescar la lista
+      await fetchSalones();
     } catch (err: any) {
       throw new Error(err.message);
     }
@@ -33,7 +33,7 @@ export const useSalones = () => {
   const actualizarSalon = async (formSalon: FormSalon) => {
     try {
       await SalonService.actualizarSalon(formSalon);
-      await fetchSalones(); // Refrescar la lista
+      await fetchSalones(); 
     } catch (err: any) {
       throw new Error(err.message);
     }
@@ -42,7 +42,7 @@ export const useSalones = () => {
   const eliminarSalon = async (salonId: string) => {
     try {
       await SalonService.eliminarSalon(salonId);
-      await fetchSalones(); // Refrescar la lista
+      await fetchSalones(); 
     } catch (err: any) {
       throw new Error(err.message);
     }
