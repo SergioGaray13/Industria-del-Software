@@ -61,10 +61,8 @@ export default function LugarPage() {
     habitaciones: 1
   })
 
-  // Estado para controlar qué lugar muestra sus salones
   const [salonesVisibles, setSalonesVisibles] = useState<string | null>(null)
 
-  // Reseñas
   const [showReviews, setShowReviews] = useState(false)
   const [selectedLugar, setSelectedLugar] = useState<Lugar | null>(null)
   const [reviews, setReviews] = useState<Review[]>([])
@@ -109,12 +107,10 @@ export default function LugarPage() {
 
   const handleToggleResenas = async (lugar: Lugar) => {
     if (showReviews && selectedLugar?.id === lugar.id) {
-      // Ocultar reseñas si ya están visibles para este lugar
       setShowReviews(false)
       setSelectedLugar(null)
       setReviews([])
     } else {
-      // Mostrar reseñas para el lugar seleccionado
       setSelectedLugar(lugar)
       setShowReviews(true)
       setLoadingReviews(true)
