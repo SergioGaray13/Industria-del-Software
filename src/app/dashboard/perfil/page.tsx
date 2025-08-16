@@ -62,7 +62,6 @@ export default function PerfilPage() {
         return;
       }
 
-      // Obtener datos del usuario
       const { data: userData, error: userError } = await supabase
         .from('users')
         .select('*')
@@ -73,7 +72,6 @@ export default function PerfilPage() {
         console.error('Error fetching profile:', userError);
       }
 
-      // Obtener tarjetas de crédito
       const { data: cardsData, error: cardsError } = await supabase
         .from('credit_cards')
         .select('*')
@@ -140,17 +138,12 @@ export default function PerfilPage() {
   const validateCard = (card: CreditCard): boolean => {
     const newErrors: Record<string, string> = {};
 
-    // Validar número de tarjeta (simplificado)
     if (!card.card_number || !/^\d{16}$/.test(card.card_number.replace(/\s/g, ''))) {
       newErrors.card_number = 'Número de tarjeta inválido (16 dígitos)';
     }
-
-    // Validar nombre del titular
     if (!card.card_holder_name || card.card_holder_name.trim().length < 3) {
       newErrors.card_holder_name = 'Nombre del titular es requerido';
     }
-
-    // Validar fecha de expiración
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
     
@@ -159,7 +152,6 @@ export default function PerfilPage() {
       newErrors.expiration = 'La tarjeta ha expirado';
     }
 
-    // Validar CVV
     if (!card.cvv || !/^\d{3,4}$/.test(card.cvv)) {
       newErrors.cvv = 'CVV inválido (3 o 4 dígitos)';
     }
@@ -176,7 +168,6 @@ export default function PerfilPage() {
       let error;
       
       if (editingCard?.id) {
-        // Actualizar tarjeta existente
         const { error: updateError } = await supabase
           .from('credit_cards')
           .update({
@@ -187,7 +178,6 @@ export default function PerfilPage() {
 
         error = updateError;
       } else {
-        // Crear nueva tarjeta
         const { error: insertError } = await supabase
           .from('credit_cards')
           .insert({
@@ -202,7 +192,6 @@ export default function PerfilPage() {
         console.error('Error saving credit card:', error);
         alert('Error al guardar la tarjeta de crédito');
       } else {
-        // Si es la tarjeta por defecto, actualizar las demás
         if (cardFormData.is_default) {
           await supabase
             .from('credit_cards')
@@ -211,7 +200,7 @@ export default function PerfilPage() {
             .neq('id', editingCard?.id || '');
         }
 
-        fetchProfile(); // Refrescar la lista de tarjetas
+        fetchProfile(); 
         setEditingCard(null);
         setCardFormData({
           card_number: '',
@@ -219,7 +208,7 @@ export default function PerfilPage() {
           expiration_month: new Date().getMonth() + 1,
           expiration_year: new Date().getFullYear(),
           cvv: '',
-          is_default: cards.length === 0, // Si es la primera tarjeta, hacerla por defecto
+          is_default: cards.length === 0, 
         });
         alert('Tarjeta guardada correctamente');
       }
@@ -244,7 +233,7 @@ export default function PerfilPage() {
         console.error('Error deleting credit card:', error);
         alert('Error al eliminar la tarjeta');
       } else {
-        fetchProfile(); // Refrescar la lista de tarjetas
+        fetchProfile(); 
         alert('Tarjeta eliminada correctamente');
       }
     } catch (error) {
