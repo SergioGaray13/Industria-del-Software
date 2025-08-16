@@ -29,16 +29,12 @@ export default function Step1BasicInfo({
   providers,
 }: Step1Props) {
   const handleDateChange = (field: 'start_date' | 'end_date', value: string) => {
-    // Actualizar el campo modificado
+
     updateFormField(field, value);
 
-    // Si cambiamos la fecha de inicio, actualizamos date_reserved
     if (field === 'start_date') {
       updateFormField('date_reserved', value);
     }
-
-    // Si cambiamos la fecha final sin tener fecha de inicio,
-    // establecemos ambas fechas iguales
     if (field === 'end_date' && !formState.start_date) {
       updateFormField('start_date', value);
       updateFormField('date_reserved', value);
@@ -87,7 +83,6 @@ export default function Step1BasicInfo({
         />
       </InputField>
 
-      {/* Campo oculto para asegurar que date_reserved se incluya en el formulario */}
       <input
         type="hidden"
         name="date_reserved"
