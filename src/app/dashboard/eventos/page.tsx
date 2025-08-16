@@ -45,7 +45,6 @@ export default function EventosPage() {
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [view, setView] = useState<'mis-eventos' | 'solicitudes'>('mis-eventos');
 
-  // Cargar usuario al montar componente (solo 1 vez)
   useEffect(() => {
     const fetchUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -71,7 +70,6 @@ export default function EventosPage() {
     fetchUser();
   }, []);
 
-  // Cargar eventos cuando cambie la vista o el usuario
   useEffect(() => {
     if (!currentUser) return;
 
@@ -82,7 +80,6 @@ export default function EventosPage() {
 
       if (view === 'solicitudes' && currentUser.role === 'proveedor') {
         try {
-          // Primero obtener el provider_id del usuario actual
           const { data: providerData, error: providerError } = await supabase
             .from('providers')
             .select('id')
@@ -103,7 +100,6 @@ export default function EventosPage() {
             return;
           }
 
-          // Consultar bookings para proveedor
           const { data: bookings, error: bookingsError } = await supabase
             .from('bookings')
             .select(`
@@ -121,7 +117,6 @@ export default function EventosPage() {
             return;
           }
 
-          // Para cada booking, obtener los detalles del evento
           if (bookings && bookings.length > 0) {
             const eventPromises = bookings.map(async (booking): Promise<Evento | null> => {
               const { data: evento, error: eventoError } = await supabase
@@ -143,7 +138,6 @@ export default function EventosPage() {
                 return null;
               }
 
-              // Obtener nombre del lugar
               let lugar_nombre = 'No especificado';
               if (evento.location_id) {
                 const { data: lugar } = await supabase
@@ -154,7 +148,6 @@ export default function EventosPage() {
                 lugar_nombre = lugar?.nombre || 'No especificado';
               }
 
-              // Obtener nombre del salón
               let salon_nombre = 'No especificado';
               if (evento.salon_id) {
                 const { data: salon } = await supabase
@@ -178,7 +171,6 @@ export default function EventosPage() {
             });
 
             const eventosResueltos = await Promise.all(eventPromises);
-            // SOLUCIÓN: Usar type assertion o filtro con type guard
             eventosCargados = eventosResueltos.filter((evento): evento is Evento => evento !== null);
 
           }
@@ -188,7 +180,6 @@ export default function EventosPage() {
         }
       } else {
         try {
-          // Consultar eventos propios (usuario normal)
           const { data: misEventos, error } = await supabase
             .from('events')
             .select(`
@@ -203,7 +194,6 @@ export default function EventosPage() {
           } else if (misEventos) {
             eventosCargados = await Promise.all(
               misEventos.map(async (evento: any): Promise<Evento> => {
-                // Obtener nombre del lugar
                 let lugar_nombre = 'No especificado';
                 if (evento.location_id) {
                   const { data: lugar } = await supabase
@@ -214,7 +204,6 @@ export default function EventosPage() {
                   lugar_nombre = lugar?.nombre || 'No especificado';
                 }
 
-                // Obtener nombre del salón
                 let salon_nombre = 'No especificado';
                 if (evento.salon_id) {
                   const { data: salon } = await supabase
@@ -273,8 +262,6 @@ export default function EventosPage() {
 
     fetchData();
   }, [view, currentUser]);
-
-  // Suscripción a mensajes nuevos
   useEffect(() => {
     if (!currentUser) return;
 
@@ -285,7 +272,6 @@ export default function EventosPage() {
         { event: 'INSERT', schema: 'public', table: 'messages' },
         (payload) => {
           console.log('🔥 Nuevo mensaje:', payload);
-          // Aquí puedes actualizar estado para mensajes en vivo si quieres
         }
       )
       .subscribe();
@@ -314,7 +300,6 @@ export default function EventosPage() {
     return new Date(dateStr).toLocaleDateString();
   };
 
-  // Filtrar eventos según vista y status
   const eventosFiltrados =
     view === 'mis-eventos'
       ? eventos.filter(e => e.status !== 'pendiente')
