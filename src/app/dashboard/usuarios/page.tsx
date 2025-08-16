@@ -48,7 +48,7 @@ export default function UsuariosPage() {
         }}
         onDelete={deleteUser}
         actionLoading={actionLoading}
-        toggleActive={toggleActive} // PASAMOS la función aquí
+        toggleActive={toggleActive} 
       />
     </div>
   );
