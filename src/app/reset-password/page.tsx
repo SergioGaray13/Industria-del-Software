@@ -22,19 +22,16 @@ export default function ResetPasswordPage() {
       const type = searchParams.get('type');
       const code = searchParams.get('code');
 
-      // Método 1: Tokens tradicionales
       if (accessToken && refreshToken && type === 'recovery') {
         await setSessionWithTokens(accessToken, refreshToken);
         return;
       }
 
-      // Método 2: Intercambio de código
       if (code) {
         await exchangeCodeForSession(code);
         return;
       }
 
-      // Método 3: Verificar sesión existente
       await checkExistingSession();
     };
 
@@ -128,7 +125,6 @@ export default function ResetPasswordPage() {
       } else {
         setMessage('¡Contraseña cambiada con éxito! Redirigiendo al login...');
         
-        // Cerrar sesión después de cambiar la contraseña
         await supabase.auth.signOut();
         
         setTimeout(() => {
@@ -141,7 +137,6 @@ export default function ResetPasswordPage() {
     }
   };
 
-  // Mostrar loading mientras se inicializa
   if (isInitializing) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-orange-50">
@@ -155,7 +150,6 @@ export default function ResetPasswordPage() {
     );
   }
 
-  // Mostrar error si el token no es válido
   if (!tokenValid) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-orange-50 p-4">
@@ -185,7 +179,6 @@ export default function ResetPasswordPage() {
     );
   }
 
-  // Formulario para cambiar contraseña
   return (
     <div className="min-h-screen flex items-center justify-center bg-orange-50 p-4">
       <div className="bg-white p-8 rounded shadow max-w-md w-full">
