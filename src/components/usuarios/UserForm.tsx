@@ -17,7 +17,7 @@ export default function UserForm({ user, onCancel, onSave, actionLoading }: Prop
     first_name: '',
     last_name: '',
     role: 'usuario' as 'usuario' | 'proveedor' | 'admin',
-    is_active: true, // nuevo campo para estado
+    is_active: true, 
   });
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function UserForm({ user, onCancel, onSave, actionLoading }: Prop
             <option value="admin">Administrador</option>
           </select>
         </div>
-        {/* NUEVO: Toggle para activar/desactivar usuario */}
+        
         <div className="mb-4 flex items-center gap-2">
           <input
             type="checkbox"
