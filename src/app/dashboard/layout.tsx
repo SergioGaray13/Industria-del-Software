@@ -12,7 +12,6 @@ const ChatBot = dynamic(() => import('@/components/chatbot/ChatBot'), {
   loading: () => <div className="text-sm text-orange-500">Cargando Chat...</div>,
 });
 
-// Diccionario de títulos y descripciones por ruta
 const pageInfo: Record<string, { title: string; subtitle: string }> = {
   '/dashboard': {
     title: 'Eventualy',
@@ -54,7 +53,6 @@ const pageInfo: Record<string, { title: string; subtitle: string }> = {
     title: 'Reservas',
     subtitle: 'Administración de Reservas',
   },
-  // Puedes seguir agregando más rutas aquí...
 };
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
