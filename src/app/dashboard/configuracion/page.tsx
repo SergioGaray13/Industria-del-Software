@@ -165,7 +165,6 @@ export default function ConfiguracionPage() {
       let error;
 
       if (editingLugar?.id) {
-        // Actualizar lugar existente
         const { error: updateError } = await supabase
           .from('lugares')
           .update(lugarFormData)
@@ -173,7 +172,6 @@ export default function ConfiguracionPage() {
 
         error = updateError;
       } else {
-        // Crear nuevo lugar
         const { error: insertError } = await supabase
           .from('lugares')
           .insert(lugarFormData);
@@ -200,7 +198,6 @@ export default function ConfiguracionPage() {
       let error;
 
       if (editingSalon?.id) {
-        // Actualizar salón existente
         const { error: updateError } = await supabase
           .from('salones')
           .update(salonFormData)
@@ -208,7 +205,6 @@ export default function ConfiguracionPage() {
 
         error = updateError;
       } else {
-        // Crear nuevo salón
         const { error: insertError } = await supabase
           .from('salones')
           .insert(salonFormData);
@@ -232,7 +228,6 @@ export default function ConfiguracionPage() {
     if (!window.confirm('¿Estás seguro de que quieres eliminar este lugar? Esto también eliminará todos sus salones.')) return;
 
     try {
-      // Primero eliminamos los salones asociados
       const { error: deleteSalonesError } = await supabase
         .from('salones')
         .delete()
@@ -240,7 +235,6 @@ export default function ConfiguracionPage() {
 
       if (deleteSalonesError) throw deleteSalonesError;
 
-      // Luego eliminamos el lugar
       const { error: deleteLugarError } = await supabase
         .from('lugares')
         .delete()
