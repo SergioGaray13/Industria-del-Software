@@ -57,9 +57,8 @@ const initialFormState: FormState = {
   cateringNotes: '',
   notes: '',
   userId: '',
-  hours_reserved: 0, // Añadir esta línea con valor inicial 0
-  date_reserved: '', // También añadir esta línea si es necesaria
-  calculated_price: 0,
+  hours_reserved: 0,
+  date_reserved: '',: 0,
 };
 
 export function useCrearEventoForm(router: ReturnType<typeof useRouter>) {
@@ -68,7 +67,7 @@ export function useCrearEventoForm(router: ReturnType<typeof useRouter>) {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<any>(null); // 🔥 Agregar estado para usuario
+  const [currentUser, setCurrentUser] = useState<any>(null); 
 
   const [supabaseData, setSupabaseData] = useState({
     categories: [] as any[],
@@ -79,8 +78,6 @@ export function useCrearEventoForm(router: ReturnType<typeof useRouter>) {
     serviceModes: [] as any[],
     menus: [] as any[],
   });
-
-  // 🔥 Cargar usuario al inicializar el hook
   useEffect(() => {
     async function loadUser() {
       try {
@@ -93,15 +90,13 @@ export function useCrearEventoForm(router: ReturnType<typeof useRouter>) {
 
         if (!user) {
           console.warn('No hay usuario autenticado');
-          // Opcional: redirigir a login
-          // router.push('/login');
+      
           return;
         }
 
-        console.log('Usuario cargado:', user.id); // 🔍 Debug
+        console.log('Usuario cargado:', user.id);
         setCurrentUser(user);
-        
-        // Actualizar formState con userId
+      
         setFormState(prev => ({
           ...prev,
           userId: user.id
@@ -114,14 +109,12 @@ export function useCrearEventoForm(router: ReturnType<typeof useRouter>) {
 
     loadUser();
   }, []);
-// Dentro del hook useCrearEventoForm, junto con los otros efectos
 useEffect(() => {
   if (formState.startTime && formState.endTime) {
     const calculateHours = () => {
       const start = new Date(`2000-01-01T${formState.startTime}`);
       const end = new Date(`2000-01-01T${formState.endTime}`);
       
-      // Manejar eventos que pasan de medianoche
       if (end < start) {
         end.setDate(end.getDate() + 1);
       }
@@ -138,11 +131,10 @@ useEffect(() => {
     calculateHours();
   }
 }, [formState.startTime, formState.endTime]);
-  // 🔥 Escuchar cambios en la autenticación
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.id); // 🔍 Debug
+        console.log('Auth state changed:', event, session?.user?.id); 
         
         if (session?.user) {
           setCurrentUser(session.user);
@@ -163,7 +155,6 @@ useEffect(() => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Cargar datos de Supabase
   useEffect(() => {
     async function fetchData() {
       const [
@@ -196,20 +187,16 @@ useEffect(() => {
     }
     fetchData();
   }, []);
-
-  // Menús filtrados por catering seleccionado
   const filteredMenus = useMemo(() => {
     if (!formState.cateringId) return [];
     return supabaseData.menus.filter((menu) => menu.catering_id === formState.cateringId);
   }, [formState.cateringId, supabaseData.menus]);
 
-  // Salones filtrados por lugar seleccionado
   const filteredSalones = useMemo(() => {
     if (!formState.placeId) return [];
     return supabaseData.salones.filter((salon) => salon.lugar_id === formState.placeId);
   }, [formState.placeId, supabaseData.salones]);
 
-  // Actualizar campos
   const updateFormField = useCallback(
     (field: keyof FormState, value: any) => {
       setFormState((prev) => ({
@@ -217,7 +204,6 @@ useEffect(() => {
         [field]: value,
       }));
 
-      // Si cambia lugar, actualiza dirección y limpia salón
       if (field === 'placeId') {
         const lugar = supabaseData.lugares.find((l) => l.id === value);
         setFormState((prev) => ({
@@ -230,11 +216,9 @@ useEffect(() => {
     [supabaseData.lugares]
   );
 
-  // Validaciones por paso
   const validateStep = useCallback(() => {
     const newErrors: Record<string, string> = {};
     
-    // 🔥 Validar que hay usuario autenticado
     if (!currentUser) {
       newErrors.auth = 'Debes estar autenticado para crear eventos';
     }
@@ -273,15 +257,14 @@ useEffect(() => {
     setFormState({
       ...initialFormState,
       userId: currentUser?.id || '',
-      hours_reserved: 0, // Resetear a 0
-      date_reserved: '' // Resetear a vacío
+      hours_reserved: 0, 
+      date_reserved: '' 
     });
     setErrors({});
     setCurrentStep(1);
     setShowSuccess(false);
   }, [currentUser]);
 
-  // Guardar evento y booking
   const handleSubmit = useCallback(async () => {
     if (!validateStep()) return;
     
@@ -294,7 +277,6 @@ useEffect(() => {
     try {
       console.log('Creando evento para usuario:', currentUser.id);
       
-      // 1️⃣ Crear evento
       const { data: eventData, error: eventError } = await supabase
         .from("events")
         .insert([
@@ -330,7 +312,6 @@ useEffect(() => {
       const eventId = eventData.id;
       console.log('Evento creado con ID:', eventId);
       
-      // 2️⃣ Crear booking asociado con hours_reserved
       const { error: bookingError } = await supabase
         .from("bookings")
         .insert([
@@ -347,8 +328,8 @@ useEffect(() => {
             includes_service_staff: formState.includesServiceStaff,
             service_mode_id: formState.serviceMode || null,
             notes: formState.cateringNotes || null,
-            hours_reserved: formState.hours_reserved, // Añadir esta línea
-            date_reserved: formState.date_reserved || formState.start_date, // Y esta línea
+            hours_reserved: formState.hours_reserved, 
+            date_reserved: formState.date_reserved || formState.start_date, 
             calculated_price: formState.calculated_price,
           },
         ]);
@@ -375,7 +356,7 @@ useEffect(() => {
     currentStep,
     isLoading,
     showSuccess,
-    currentUser, // 🔥 Exponer currentUser para debugging
+    currentUser,
     supabaseData,
     filteredMenus,
     filteredSalones,
