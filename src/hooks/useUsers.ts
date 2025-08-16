@@ -9,7 +9,7 @@ export interface User {
   first_name: string;
   last_name: string;
   role: 'usuario' | 'proveedor' | 'admin';
-  is_active: boolean; // nuevo campo
+  is_active: boolean; 
   created_at: string;
 }
 
@@ -19,7 +19,6 @@ export function useUsers() {
   const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState(false);
 
-  // Cargar usuarios
   useEffect(() => {
     (async () => {
       try {
@@ -37,7 +36,6 @@ export function useUsers() {
     })();
   }, []);
 
-  // Guardar usuario (crear o actualizar)
   async function saveUser(user: Partial<User>) {
     setActionLoading(true);
     try {
@@ -55,7 +53,6 @@ export function useUsers() {
     }
   }
 
-  // Eliminar usuario
   async function deleteUser(id: string, name: string) {
     if (!confirm(`¿Seguro que quieres eliminar a ${name}?`)) return;
     setActionLoading(true);
@@ -70,7 +67,6 @@ export function useUsers() {
     }
   }
 
-  // Cambiar estado activo/inactivo rápido (para tabla)
   async function toggleActive(user: User, newState: boolean) {
     setActionLoading(true);
     try {
