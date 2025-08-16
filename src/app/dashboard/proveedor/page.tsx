@@ -23,7 +23,7 @@ export default function ProveedoresPage() {
     getReviewCount,
   } = useProviders();
 
-  // Estados y lógica para rol usuario
+
   const [userRole, setUserRole] = useState<string | null>(null);
   const [loadingRole, setLoadingRole] = useState(true);
 
@@ -137,7 +137,7 @@ export default function ProveedoresPage() {
               provider={provider}
               avgRating={getAverageRatingAsNumber(provider.id)}
               reviewCount={getReviewCount(provider.id)}
-              userRole={userRole} // <-- Pasamos rol al componente
+              userRole={userRole} 
               onEdit={() => {
                 setEditingProvider(provider);
                 setShowForm(true);
