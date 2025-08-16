@@ -37,7 +37,6 @@ export default function FAQPage() {
       try {
         setError(null)
 
-        // Verificar sesión
         const {
           data: { session },
           error: sessionError
@@ -54,7 +53,6 @@ export default function FAQPage() {
           return
         }
 
-        // Verificar rol del usuario
         const { data: userData, error: userError } = await supabase
           .from('users')
           .select('role')
@@ -67,7 +65,6 @@ export default function FAQPage() {
 
         setUserRole(userData?.role || null)
 
-        // Cargar categorías
         const { data: catData, error: catError } = await supabase
           .from('faq_categories')
           .select('name, icon')
@@ -75,14 +72,12 @@ export default function FAQPage() {
         if (catError) {
           console.error('Error al cargar categorías:', catError)
         } else {
-          // Agregar "todas" al inicio
           setCategories([
             { name: 'todas', icon: '📋', count: 0 },
             ...(catData || []).map(c => ({ ...c, count: 0 }))
           ])
         }
 
-        // Cargar FAQs con join a categorías
         const { data: faqData, error: faqError } = await supabase
           .from('faq')
           .select(`
@@ -99,14 +94,12 @@ export default function FAQPage() {
           console.error('Error al cargar FAQs:', faqError)
           setError(`Error al cargar preguntas frecuentes: ${faqError.message}`)
         } else {
-          // Mapear para que faq.categoria sea string
           const mappedFaqs = (faqData || []).map((f: any) => ({
             ...f,
             categoria: f.categoria?.name || null
           }))
           setFaqs(mappedFaqs)
 
-          // Contar FAQs por categoría
           const updatedCats = (catData || []).map(cat => ({
             ...cat,
             count: mappedFaqs.filter(f => f.categoria?.toLowerCase() === cat.name.toLowerCase()).length
@@ -127,7 +120,6 @@ export default function FAQPage() {
     fetchUserRoleAndFAQs()
   }, [router])
 
-  // Filtrar FAQs por búsqueda y categoría
   const filteredFAQs = faqs.filter(faq => {
     const matchesSearch =
       faq.pregunta.toLowerCase().includes(searchTerm.toLowerCase()) ||
