@@ -25,7 +25,7 @@ export default function SalonesPage() {
   const [userRole, setUserRole] = useState<string | null>(null);
   const [loadingRole, setLoadingRole] = useState(true);
 
-  // Estados para modales
+
   const [selectedSalon, setSelectedSalon] = useState<Salon | null>(null);
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
@@ -50,7 +50,6 @@ export default function SalonesPage() {
   const [loadingEliminar, setLoadingEliminar] = useState(false);
   const [mensajeEliminar, setMensajeEliminar] = useState('');
 
-  // Obtener el rol del usuario al cargar la página
   useEffect(() => {
     const fetchUserRole = async () => {
       const {
@@ -78,8 +77,6 @@ export default function SalonesPage() {
 
     fetchUserRole();
   }, [router]);
-
-  // Funciones para reserva
   const abrirModalReservar = (salon: Salon) => {
     setSelectedSalon(salon);
     setFecha('');
@@ -111,8 +108,6 @@ export default function SalonesPage() {
       }
     }
   };
-
-  // Funciones para formulario
   const abrirModalAgregar = () => {
     setFormSalon({
       nombre: '',
@@ -185,8 +180,6 @@ export default function SalonesPage() {
       setLoadingForm(false);
     }
   };
-
-  // Funciones para eliminar
   const abrirModalEliminar = (salonId: string) => {
     setEliminarSalonId(salonId);
     setMensajeEliminar('');
@@ -245,7 +238,7 @@ export default function SalonesPage() {
           <SalonCard
             key={salon.id}
             salon={salon}
-            userRole={userRole} // Pasamos el rol al componente
+            userRole={userRole} 
             onReservar={abrirModalReservar}
             onEditar={abrirModalEditar}
             onEliminar={abrirModalEliminar}
