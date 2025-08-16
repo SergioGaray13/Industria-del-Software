@@ -67,13 +67,11 @@ export default function SponsorsPage() {
     };
 
     if (editingSponsor) {
-      // Update
       await supabase
         .from('sponsors')
         .update(newSponsor)
         .eq('id', editingSponsor.id);
     } else {
-      // Create
       await supabase.from('sponsors').insert([
         { ...newSponsor, id: uuidv4() },
       ]);
