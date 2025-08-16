@@ -11,7 +11,7 @@ interface ProviderCardProps {
   onDelete: () => void;
   onToggleReviews: () => void;
   showReviews: boolean;
-  userRole: string | null; // <-- Nuevo prop
+  userRole: string | null; 
 }
 
 export default function ProviderCard({
