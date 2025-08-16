@@ -42,7 +42,7 @@ export default function ReservasPage() {
       .order('fecha', { ascending: true });
 
     if (!error && data) {
-      console.log('Datos recibidos:', data); // Para debug
+      console.log('Datos recibidos:', data); 
       
       const reservasConSalonObjeto = data.map((r: any) => ({
         ...r,
