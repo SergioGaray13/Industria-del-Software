@@ -85,7 +85,7 @@ export default function LoginPage() {
             {/* Botón Olvidé mi contraseña */}
             <a
               href="/reset-password-request"
-              target="_blank"  // ❌ ELIMINAR ESTO
+              target="_blank" 
               rel="noopener noreferrer"
               className="mt-4 w-full block text-center text-blue-600 hover:underline cursor-pointer"
             >
