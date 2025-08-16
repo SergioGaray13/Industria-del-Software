@@ -4,7 +4,7 @@ import { Salon } from '@/types/salon';
 
 interface SalonCardProps {
   salon: Salon;
-  userRole: string | null; // <-- agregada prop para el rol
+  userRole: string | null; 
   onReservar: (salon: Salon) => void;
   onEditar: (salon: Salon) => void;
   onEliminar: (salonId: string) => void;
