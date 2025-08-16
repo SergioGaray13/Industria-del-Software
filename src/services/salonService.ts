@@ -3,7 +3,6 @@ import { supabase } from '@/lib/supabase';
 import { Salon, FormSalon } from '@/types/salon';
 
 export class SalonService {
-  // Función común para subir imagen
   static async subirImagen(file: File): Promise<string> {
     const fileExt = file.name.split('.').pop();
     const fileName = `${crypto.randomUUID()}.${fileExt}`;
@@ -19,7 +18,6 @@ export class SalonService {
     return data.publicUrl;
   }
 
-  // Obtener todos los salones
   static async fetchSalones(): Promise<Salon[]> {
     const { data, error } = await supabase
       .from('salones')
@@ -34,7 +32,6 @@ export class SalonService {
   
     if (error) throw error;
   
-    // Opcional: renombrar 'salon_sesiones' a 'sesiones' para que sea más claro
     const salonesConSesiones = data?.map((salon) => ({
       ...salon,
       sesiones: salon.salon_sesiones ?? [],
@@ -44,7 +41,6 @@ export class SalonService {
   }
   
 
-  // Crear nuevo salón
   static async crearSalon(formSalon: FormSalon): Promise<void> {
     let urlImagen = null;
     if (formSalon.imagen) {
@@ -68,7 +64,6 @@ export class SalonService {
     if (error) throw error;
   }
 
-  // Actualizar salón
   static async actualizarSalon(formSalon: FormSalon): Promise<void> {
     if (!formSalon.id) throw new Error('ID de salón requerido para actualizar');
 
@@ -98,13 +93,11 @@ export class SalonService {
     if (error) throw error;
   }
 
-  // Eliminar salón
   static async eliminarSalon(salonId: string): Promise<void> {
     const { error } = await supabase.from('salones').delete().eq('id', salonId);
     if (error) throw error;
   }
 
-  // Crear reserva
   static async crearReserva(
     salonId: string,
     fecha: string,
@@ -116,7 +109,6 @@ export class SalonService {
 
     if (!session) throw new Error('Usuario no autenticado');
 
-    // Validar duplicados
     const { data: existentes } = await supabase
       .from('reservas')
       .select('*')
