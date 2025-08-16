@@ -29,13 +29,12 @@ export default function RegisterPage() {
 
     const user = data.user;
     if (user) {
-      // Insertar siempre con rol 'usuario'
       const { error: insertError } = await supabase.from('users').insert([
         {
           id: user.id,
           first_name: firstName.trim(),
           last_name: lastName.trim(),
-          role: 'usuario',  // rol fijo
+          role: 'usuario',  
         },
       ]);
       if (insertError) {
