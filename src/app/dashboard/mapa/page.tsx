@@ -25,7 +25,6 @@ export const EventMap: React.FC = () => {
   const [mostrarLeyenda, setMostrarLeyenda] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  // Cargar lugares al montar el componente
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
@@ -37,7 +36,6 @@ export const EventMap: React.FC = () => {
     loadData();
   }, []);
 
-  // Cargar salones cuando se selecciona un lugar
   useEffect(() => {
     if (lugarSeleccionado) {
       const loadSalones = async () => {
@@ -49,7 +47,6 @@ export const EventMap: React.FC = () => {
 
       loadSalones();
     } else {
-      // Cargar todos los salones si no hay lugar seleccionado
       const loadAllSalones = async () => {
         setLoading(true);
         const salonesData = await fetchSalones();
@@ -160,7 +157,6 @@ export const EventMap: React.FC = () => {
         {/* Contenido principal */}
         <div className="flex-1 overflow-auto bg-gray-100">
           {vistaActual === 'lugares' ? (
-            // Vista de lugares (lista de centros de eventos)
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {lugares.map((lugar) => (
@@ -176,7 +172,6 @@ export const EventMap: React.FC = () => {
               </div>
             </div>
           ) : (
-            // Vista de planta (mapa de salones)
             <div className="min-w-max min-h-max p-4">
               <svg
                 width={800 * escala}
@@ -250,7 +245,6 @@ export const EventMap: React.FC = () => {
         {mostrarLeyenda && (
           <div className="w-80 bg-white border-l p-4 overflow-y-auto">
             {vistaActual === 'lugares' ? (
-              // Panel para vista de lugares
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-3">Centros de Eventos</h3>
                 <p className="text-sm text-gray-600 mb-4">
@@ -269,7 +263,6 @@ export const EventMap: React.FC = () => {
                 </div>
               </div>
             ) : (
-              // Panel para vista de planta
               <div>
                 {/* Información del lugar actual */}
                 {lugarActual && (
