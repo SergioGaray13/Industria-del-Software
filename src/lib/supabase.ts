@@ -14,7 +14,7 @@ export async function guardarMensajeDeSoporte(nombre: string, mensaje: string) {
   console.log('Guardando mensaje:', { nombre, mensaje })
 
   const { data, error } = await supabase
-    .from('soporte')  // <--- nombre correcto de tu tabla
+    .from('soporte')  
     .insert([{ nombre, mensaje }])
 
   if (error) {
