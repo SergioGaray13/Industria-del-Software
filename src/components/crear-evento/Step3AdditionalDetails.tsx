@@ -63,7 +63,6 @@ export default function Step3AdditionalDetails({
     total: 0,
   });
 
-  // Calcular el costo estimado cuando cambian los inputs relevantes
   useEffect(() => {
     calculateEstimatedCost();
   }, [
@@ -78,31 +77,23 @@ export default function Step3AdditionalDetails({
   ]);
 
   const calculateEstimatedCost = () => {
-    // 1. Costo fijo del salón (250 * horas reservadas)
     const salonCost = 250 * (formState.hours_reserved || 0);
 
-    // 2. Costo del catering (precio del menú * número de invitados)
     const selectedMenu = filteredMenus.find(menu => menu.id === formState.menuId);
     const cateringCost = selectedMenu?.price && formState.attendeesEstimated ?
       selectedMenu.price * parseInt(formState.attendeesEstimated) : 0;
 
-    // 3. Costo adicional por personal de servicio (500 si está marcado)
     const serviceStaffCost = formState.includesServiceStaff ? 500 : 0;
 
-    // 4. Costo adicional por equipo audiovisual (300 si está marcado)
     const audiovisualCost = formState.audiovisual ? 300 : 0;
 
-    // 5. Costo por modalidad de servicio
     const selectedServiceMode = serviceModes.find(mode => mode.id === formState.serviceMode);
     const serviceModeCost = selectedServiceMode?.additional_cost || 0;
 
-    // 6. Subtotal (suma de todos los costos)
     const subtotal = salonCost + cateringCost + serviceStaffCost + audiovisualCost + serviceModeCost;
 
-    // 7. Impuestos (10% del subtotal)
     const tax = subtotal * 0.1;
 
-    // 8. Total (subtotal + impuestos)
     const total = subtotal + tax;
 
     setEstimatedCost({
@@ -116,7 +107,6 @@ export default function Step3AdditionalDetails({
       total,
     });
 
-    // Precio calculado fijo (250 * horas reservadas)
     updateFormField('calculated_price', salonCost);
   };
 
